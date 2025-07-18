@@ -1,0 +1,21 @@
+{ "name": "crypto-at-rest-util-pmb",
+  "version": "0.0.0",
+  "description": "Utilities for storing data encrypted.",
+  "keywords": [],
+
+  "author": "M.K. (https://github.com/mk-pmb)",
+  "homepage": "https://github.com/mk-pmb/crypto-at-rest-util-pmb/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mk-pmb/crypto-at-rest-util-pmb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mk-pmb/crypto-at-rest-util-pmb/issues"
+  },
+  "contributors": [],
+
+  "private": true, "license": "ISC",
+
+
+  "engines": { "npm": ">=7.0.0", "bash": ">=5.0.0" }
+}
