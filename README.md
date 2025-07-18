@@ -10,10 +10,8 @@ Utilities for storing data encrypted.
 
 
 
-Usage
------
-
-### `luks-with-keyfile`
+`luks-with-keyfile`
+-------------------
 
 ```text
 $ luks-with-keyfile /path/to/my/secrets/mydisk.key init
@@ -60,7 +58,9 @@ a personal `tmpfs` just for you in `/run/user/$UID`.
 </small>
 
 
-### `openssl-enc-file-with-keyfile`
+
+`openssl-enc-file-with-keyfile`
+-------------------------------
 
 ```text
 openssl-enc-file-with-keyfile secret.key foo.txt     bar.zip       # encrypt
