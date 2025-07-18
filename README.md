@@ -60,6 +60,19 @@ a personal `tmpfs` just for you in `/run/user/$UID`.
 </small>
 
 
+### `openssl-enc-file-with-keyfile`
+
+```text
+openssl-enc-file-with-keyfile secret.key foo.txt     bar.zip       # encrypt
+openssl-enc-file-with-keyfile secret.key foo.txt.enc bar.zip.enc   # decrypt
+```
+
+Whether to encrypt or decrypt is chosen based on whether the filename
+ends in `.enc`.
+
+
+
+
 
 
 Known issues
