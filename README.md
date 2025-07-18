@@ -43,11 +43,21 @@ so make sure your keyfile will work on all devices you want to use.
 #### Use a combination of keyfile(s) and/or password(s)
 
 To construct a more complex key file,
-create it on a secure temporary file system,
+create it in a secure temporary directory¹ on a secure temporary file system²,
 and symlink to it if needed.
-Depending on your swap settings and threat model,
-a regular `tmpfs` in your RAM may be secure enough.
 
+<small>
+
+¹ Be aware of the usual attacks on temporary files
+(read permissions, race conditions on create, still-open file handles, …)
+and avoid them.
+The `mktemp` command and `mkdir`'s `--mode=0700` option can help you.
+<br>² Depending on your swap settings and threat model,
+a regular `tmpfs` in your RAM may be secure enough.
+On Ubuntu, `systemd` should have created
+a personal `tmpfs` just for you in `/run/user/$UID`.
+
+</small>
 
 
 
