@@ -55,6 +55,11 @@ function lwkf_action () {
         );;
 
     open )
+      echo E: "Action 'open' is deprecated. Try 'justOpen' or 'use'." >&2
+      return 4;;
+
+    justOpen )
+      ACTION='open'
       OPT+=(
         --type=luks
         -- "$CTNR" "$LVM_PV"
@@ -66,25 +71,20 @@ function lwkf_action () {
     "${OPT[@]}"
     "$@"
     )
-  [ "$DBGLV" -lt 2 ] || echo "D: run: ${CMD[*]}" >&2
-  "${CMD[@]}" || return $?
-
-
-  # Some commands (sometimes) require additional steps:
-  case "$ACTION" in
-    open )
-      # Sometimes, cryptsetup seems to forget to activate the VG.
-      lvm vgchange --activate y -- "$LVM_VG" || return $?
-      ;;
-  esac
+  [ "$DBGLV" -lt 2 ] || echo D: "run: ${CMD[*]}" >&2
+  SECONDS=0
+  "${CMD[@]}" || return $?$(
+    echo E: "LUKS fommand failed (rv=$?) after $SECONDS sec: ${CMD[*]}" >&2)
+  [ "$DBGLV" -lt 2 ] || echo D: "done after $SECONDS sec: ${CMD[*]}" >&2
 }
 
 
 function lwkf_init () {
   lwkf_action format || return $?
-  lwkf_action open || return $?
-  lvm vgcreate -- "$LVM_VG" /dev/mapper/"$LVM_PV" || return $?
-  lvm vgchange --activate y -- "$LVM_VG" || return $?
+  lwkf_action justOpen || return $?
+  lvm vgcreate -- "$LVM_VG" /dev/mapper/"$LVM_PV" || return $?$(
+    echo E: "Failed (rv=$?) to create VG $LVM_VG!" >&2)
+  lwkf_ensure_vg_active || return $?
 }
 
 
@@ -122,6 +122,19 @@ function lwkf_close () {
   echo -n "close LUKS: "
   cryptsetup close -- "$LVM_PV" || return $?
   echo "done."
+}
+
+
+function lwkf_use () {
+  lwkf_action justOpen || return $?
+  lwkf_ensure_vg_active || return $?
+}
+
+
+function lwkf_ensure_vg_active () {
+  # Sometimes, cryptsetup seems to forget to activate the VG.
+  lvm vgchange --activate y -- "$LVM_VG" ||
+    return $?$(echo E: "Failed (rv=$?) to activate VG $LVM_VG!" >&2)
 }
 
 
