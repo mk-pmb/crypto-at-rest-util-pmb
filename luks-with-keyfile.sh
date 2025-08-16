@@ -74,7 +74,7 @@ function lwkf_action () {
   [ "$DBGLV" -lt 2 ] || echo D: "run: ${CMD[*]}" >&2
   SECONDS=0
   "${CMD[@]}" || return $?$(
-    echo E: "LUKS fommand failed (rv=$?) after $SECONDS sec: ${CMD[*]}" >&2)
+    echo E: "LUKS command failed (rv=$?) after $SECONDS sec: ${CMD[*]}" >&2)
   [ "$DBGLV" -lt 2 ] || echo D: "done after $SECONDS sec: ${CMD[*]}" >&2
 }
 
