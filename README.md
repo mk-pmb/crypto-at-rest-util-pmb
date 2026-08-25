@@ -10,6 +10,23 @@ Utilities for storing data encrypted.
 
 
 
+Consider tomb instead.
+----------------------
+
+Dyne's ___tomb___ ([website](https://dyne.org/software/tomb/) /
+[GitHub](https://github.com/dyne/Tomb)) looks like the more advanced,
+better maintained version of what I was trying to do here.
+
+If tomb works for you, better use that. They also recommend more tools:
+
+* Dyne's [___Simple Secret Sharing___](https://secrets.dyne.org/)
+  (aka [FXC](https://github.com/dyne/FXC))
+  can split key-like secrets
+  (text up to 1023 bytes) into shards that you can distribute to
+  5 people so that 3 of them can cooperate to reveal the secret.
+
+
+
 `luks-with-keyfile`
 -------------------
 
